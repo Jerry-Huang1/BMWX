@@ -16,4 +16,9 @@ module.exports = function(app) {
 
 	// Finish by binding the Product middleware
 	app.param('productId', products.productByID);
+
+	//fileupload route
+	app.route('/products/upload/image')
+		.post(products.postImage);
+
 };

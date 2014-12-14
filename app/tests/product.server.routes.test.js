@@ -45,7 +45,7 @@ describe('Product CRUD tests', function() {
 				price:'10.50',
 				quantity:25,
 				sku:112,
-				category_id_collection:['2','5'],
+				category_collection:['2','5'],
 			};
 
 			done();

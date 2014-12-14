@@ -6,48 +6,61 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                <table width="100%">
+                        <tr>
+                            <td style="border:20px solid white;width:50%"> <label class="control-label" for="name">Name</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="string" required>
+                                </div>
+
+                                <label class="control-label" for="Price">Price</label>
+                                <div class="input-group input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" data-ng-model="price" id="price" class="form-control" placeholder="mix - not done" required>
+                                </div>
+
+                                <label class="control-label" for="Quantity">Quantity</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="quantity" id="quantity" class="form-control" placeholder="number" required>
+                                </div>
+
+
+                                <label class="control-label" for="SKU">SKU</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="number" required>
+                                </div></td>
+                                <td>     
+
+                                    <label class="control-label" for="Description">Description</label>
+                                    <div class="controls">
+                                        <textarea type="text" data-ng-model="description" id="description" class="form-control" rows="10" placeholder="Mix input" required></textarea>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                        <label class="control-label" for="Category">Select Category:</label>
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="category in categories track by $index">
+                                <button ng:class= "{'btn-success':make($index)}" type="button" class="btn btn-xs" ng-click="selectingCategory(category, $index)" >{{category.name}}</button>
+                            </li>
+                        </ul>
+                        <label class="control-label">Upload Image</label>
+                        <div style="height:20px;"></div>
+                        <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" required>
+                        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+                        <div style="height:30px;"></div>
+                        <div class="imageContainer">
+                            <div class="row">
+                                <div data-ng-if="imageList" ng-repeat="images in imageList track by $index">                  
+                                    <div class="col-xs-3">
+                                     <a href="#" class="thumbnail">
+                                        <img  data-ng-src=" {{images}}" height="100" width="100"> 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <label class="control-label" for="price">Price</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" data-ng-model="price" id="price" class="form-control" placeholder="price" required>
-                    </div>
-
-
-                    <label class="control-label" for="quantity">Quantity</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="quantity" id="quantity" class="form-control" placeholder="quantity" required>
-                    </div>
-
-
-                    <label class="control-label" for="name">SKU</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="sku" required>
-                    </div>
-
-                    <label class="control-label" for="Category">Select Category:</label>
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="category in categories track by $index">
-                            <button ng:class= "{'btn-success':make($index)}" type="button" class="btn" ng-click="select(category, $index)" >{{category.name}}</button>
-                        </li>
-                    </ul>
-
-                    <label class="control-label" for="description">description</label>
-                    <div class="controls">
-                        <textarea type="text" data-ng-model="description" id="description" class="form-control" rows="8" placeholder="description" required></textarea>
-
-                    </div>
-<!--                    <button ng-file-select ng-model="files" multiple="true">Attach Any File</button>
-                    <div ng-file-drop ng-model="files" class="dropbox" 
-                         drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
-                         ng-multiple="true" allow-dir="true" accept="image/*,*pdf" ng-file-change="upload(files)">
-                        Drop Images or PDFs<div>here</div>
-                    </div>
-                    <div ng-no-file-drop class="dropbox">File Farg&Drop not supported on your browser</div>-->
 
                 </div>
                 <div class="form-group">

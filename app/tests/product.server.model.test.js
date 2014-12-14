@@ -36,7 +36,7 @@ describe('Product Model Unit Tests:', function() {
 				price:'10.50',
 				quantity:25,
 				sku:112,
-				category_id_collection:['2','5'],
+				category_collection:['2','5'],
 				user: user
 			});
 
@@ -60,7 +60,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 
 			return product.save(function(err) {
 				should.exist(err);
@@ -75,7 +75,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
@@ -89,7 +89,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
@@ -103,7 +103,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
@@ -118,7 +118,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
@@ -133,7 +133,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=0;
 			product.sku=112;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
@@ -148,14 +148,14 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=0;
-			product.category_id_collection=['2','5'];
+			product.category_collection=['2','5'];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without category_id_collection auto add by relate to category', function(done) { 
+		it('should be able to show an error when try to save without category_collection auto add by relate to category', function(done) { 
 			product.name = 'product name';
 			product.id='string';
 			Product.description='hello';			
@@ -163,7 +163,7 @@ describe('Product Model Unit Tests:', function() {
 			product.price='10.50';
 			product.quantity=25;
 			product.sku=112;
-			product.category_id_collection=[0,0];
+			product.category_collection=[0,0];
 			return product.save(function(err) {
 				should.exist(err);
 				done();
