@@ -46,8 +46,8 @@ var ProductSchema = new Schema({
 		required: 'Please fill product sku id',
 		trim: true		
 	},
-	category_id_collection: {
-		type: [{type: String,default: ''}]
+	category_collection: {
+		type: [{type: String,default: '',required: 'Please select one category'}]
 	},
 	created: {
 		type: Date,

@@ -1,6 +1,36 @@
 <section data-ng-controller="ProductsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="product.name"></h1>
+
+		<div class="btn-group" role="group" >
+			<button type="button" class="btn btn-default">Price: <span class="glyphicon glyphicon-usd" data-ng-bind="product.price"></span></button>
+			<button type="button" class="btn btn-default">In Stock: <span class="badge" data-ng-bind="product.quantity"></span></button>
+			<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-barcode">&nbsp;{{product.sku}}</span></button>
+		</div>
+		<br/><br/>
+		
+		<ul class="nav nav-pills">
+			<li><h4>Category:&nbsp;&nbsp;</h4></li>
+			<li ng-repeat="category in product.category_collection ">
+				<button class= " btn btn-success" >{{category}}</button>
+			</li>
+		</ul>
+
+		<h4>Description:</h4>                     		
+		<p data-ng-bind="product.description"></p>		
+
+		<div class="imageContainer">
+			<div class="row">
+				<div ng-repeat="img_url in product.image_url track by $index">                  
+					<div class="col-xs-3">
+						<a href="#" class="thumbnail">
+							<img  data-ng-src=" {{img_url}}" height="100" width="100"> 
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == product.user._id))">
 		<a class="btn btn-primary" href="/#!/products/{{product._id}}/edit">

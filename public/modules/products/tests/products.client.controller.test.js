@@ -59,7 +59,7 @@
 				price:'500.50',
 				quantity:300,
 				sku:1242353,
-				category_id_collection:['2']
+				category_collection:['2']
 
 			});
 
