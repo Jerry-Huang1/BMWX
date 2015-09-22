@@ -29,7 +29,7 @@
                                 <div class="controls">
                                     <input type="text" data-ng-model="sku" id="sku" class="form-control" placeholder="number" required>
                                 </div></td>
-                                <td>     
+                                <td>
 
                                     <label class="control-label" for="Description">Description</label>
                                     <div class="controls">
@@ -47,20 +47,27 @@
                         </ul>
                         <label class="control-label">Upload Image</label>
                         <div style="height:20px;"></div>
-                        <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" required>
-                        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+
+                        <!-- upload -->
+                        <button type="file" ngf-select="uploadFiles($files)" multiple accept="image/*" ngf-max-height="1000" ngf-max-size="5MB">
+                            Select Files
+                        </button>
+
+                        Files:
+
                         <div style="height:30px;"></div>
                         <div class="imageContainer">
                             <div class="row">
-                                <div data-ng-if="imageList" ng-repeat="images in imageList track by $index">                  
+                                <div ng-if="files" ng-repeat="image in files track by $index">
                                     <div class="col-xs-3">
-                                     <a href="#" class="thumbnail">
-                                        <img  data-ng-src=" {{images}}" height="100" width="100"> 
-                                    </a>
+                                        <a href="#" class="thumbnail">
+                                            <img ng-src="{{image.result}}" height="100" width="100"/>{{image.$error}} {{image.$errorParam}}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                            {{errorMsg}}
                         </div>
-                    </div>
 
                 </div>
                 <div class="form-group">

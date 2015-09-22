@@ -1,53 +1,45 @@
-    'use strict';
+'use strict';
 
     // Products controller
 
-    angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Products', 'Categories','$upload',
-        function ($scope, $stateParams, $location, Authentication, Products, Categories,$upload ) {
+    angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Products', 'Categories','Upload','$timeout',
+        function ($scope, $stateParams, $location, Authentication, Products, Categories,Upload,$timeout ) {
             $scope.authentication = Authentication;
+            //new
 
-    //file upload using ng-file-upload
-     $scope.uploadedImage =false; // image path
-    $scope.imageList = [];
-    $scope.onFileSelect = function(image) {
+    $scope.imageList = []; //liust of images
+    $scope.uploadFiles = function(files) {
+        $scope.files = files;
+        angular.forEach(files, function(file) {
 
-            if (angular.isArray(image)) {
-                image = image[0];
-            }
+            if (file && !file.$error) {
+         		file.upload = Upload.upload({
+                  url: '/products/upload/image',
+                  file: file
+                });
 
-            // This is how I handle file types in client side
-            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
-                alert('Only PNG and JPEG are accepted.');
-                return;
-            }
-
-            $scope.uploadInProgress = true;
-            $scope.uploadProgress = 0;
- 
-            $scope.upload = $upload.upload({
-                url: '/products/upload/image',
-                method: 'POST',
-                file: image
-            }).progress(function(event) {
-                $scope.uploadProgress = Math.floor(event.loaded / event.total);
-                $scope.$apply();
-            }).success(function(data, status, headers, config) {
-                $scope.uploadInProgress = false;
-                // If you need uploaded file immediately 
-                $scope.uploadedImage =window.location.protocol + "//" + window.location.host+JSON.parse(data).replace('public',''); 
-                $scope.imageList.push($scope.uploadedImage);
-                    
-            }).error(function(err) {
-                $scope.uploadInProgress = false;
-                console.log('Error uploading file: ' + err.message || err);
-            });
-        };
+                file.upload.then(function (response) {
+                  $timeout(function () {
+                    file.result = response.data.trim();
+                    file.result=file.result.replace('public/','').replace(/['"]+/g, '');
+                            //console.log(file.result);
+                    $scope.imageList.push(file.result);
+                  });
+                }, function (response) {
+                  if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+                });
+    		}
+        });
+    };
 
 
     //should using angular.each and _underscore
     $scope.categories = Categories.query();
     $scope.selectedCategories = [];
-    $scope.selectedCategoryName=[]; 
+    $scope.selectedCategoryName=[];
+
+
 
     $scope.selectedIndex = 0;
     $scope.make = function (indx)
@@ -74,7 +66,6 @@
             $scope.selectedCategories.push(item);
             $scope.selectedCategoryName.push(item.name);
         }
-       
     };
 
     $scope.inArray = function (items, item) {
@@ -101,7 +92,7 @@
 
     });
 
-    // Redirect after savef
+    // Redirect after save
     product.$save(function (response) {
         $location.path('products/' + response._id);
 
